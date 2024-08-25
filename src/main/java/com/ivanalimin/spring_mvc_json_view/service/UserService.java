@@ -23,10 +23,8 @@ public class UserService {
     }
 
     public User findById(UUID id) {
-
-        User user = userRepository.getWithOrders(id).orElseThrow(() ->
-                new NotFoundException("User with id " + id + " not found"));
-        return user;
+        return userRepository.getWithOrdersById(id)
+                .orElseThrow(() -> new NotFoundException("User with id " + id + " not found"));
     }
 
     @Transactional

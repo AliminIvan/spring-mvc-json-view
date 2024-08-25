@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -14,9 +12,11 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -38,10 +38,11 @@ public class Order {
     @JsonView(Views.UserDetails.class)
     private OrderStatus status;
 
-//    @ElementCollection(fetch = FetchType.EAGER)
-//    @CollectionTable(name = "order_products", joinColumns = @JoinColumn(name = "order_id"))
-//    @Column(name = "product")
-//    private List<String> products;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "order_products", joinColumns = @JoinColumn(name = "order_id"))
+    @Column(name = "product")
+    @JsonView(Views.UserDetails.class)
+    private List<String> products;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

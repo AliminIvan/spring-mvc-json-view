@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 @Service
-@Transactional(readOnly = true)
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -53,7 +52,7 @@ public class OrderService {
         }
         orderToUpdate.setStatus(order.getStatus());
         orderToUpdate.setAmount(order.getAmount());
-//        orderToUpdate.setProducts(order.getProducts());
+        orderToUpdate.setProducts(order.getProducts());
         return orderRepository.save(orderToUpdate);
     }
 
